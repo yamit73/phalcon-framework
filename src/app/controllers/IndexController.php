@@ -9,6 +9,7 @@ class IndexController extends Controller
     {
         
         
-        // return '<h1>Hello World!</h1>';
+        // $this->view->users=Users::find('name="amit" and id=1');
+        $this->view->users=Users::find();
     }
 }
