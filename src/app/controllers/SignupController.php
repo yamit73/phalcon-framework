@@ -4,7 +4,7 @@ use Phalcon\Mvc\Controller;
 class SignupController extends Controller
 {
 
-    public function IndexAction()
+    public function indexAction()
     {
 
     }
@@ -17,18 +17,16 @@ class SignupController extends Controller
             $this->request->getPost(),
             [
                 'name',
-                'email'
+                'email',
+                'password'
             ]
         );
 
         $success = $user->save();
-
-        $this->view->success = $success;
-
-        if ($success) {
-            $this->view->message = "Register succesfully";
+        if ($success==1) {
+            echo 1;
         } else {
-            $this->view->message = "Not Register succesfully due to following reason: <br>".implode("<br>", $user->getMessages());
+            echo 0;
         }
     }
 }

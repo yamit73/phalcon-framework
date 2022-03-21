@@ -63,7 +63,7 @@ $container->set(
                 'password' => 'secret',
                 'dbname'   => 'phalcon',
                 ]
-            );
+        );
     }
 );
 

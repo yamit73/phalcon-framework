@@ -2,14 +2,32 @@
 
 use Phalcon\Mvc\Controller;
 
-
 class IndexController extends Controller
 {
     public function indexAction()
     {
-        
-        
-        // $this->view->users=Users::find('name="amit" and id=1');
-        $this->view->users=Users::find();
+        session_start();
+        $this->view->currentUser=$_SESSION['currentUser'];
+        $this->view->posts=Posts::find();
+        $this->view->category=Categories::find();
     }
+    public function blogbycategoryAction()
+    {
+        session_start();
+        $this->view->currentUser=$_SESSION['currentUser'];
+        $id=$this->request->getQuery('catId');
+        $this->view->posts=Posts::find([
+            'conditions' => 'category_id='.$id.'',
+        ]);
+        $this->view->category=Categories::find();
+    }
+    public function singleBlogAction()
+    {
+        session_start();
+        $this->view->currentUser=$_SESSION['currentUser'];
+        $id=$this->request->getQuery('id');
+        $this->view->post=Post::findFirst($id);
+        $this->view->category=Categories::find();
+    }
+    
 }
