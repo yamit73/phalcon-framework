@@ -8,7 +8,7 @@
                     if ($val->status == 'publish') {
                         echo '<h1 class="display-4 fst-italic">' . $val->post_title . '</h1>
                 <p class="lead my-3">' . $val->post_description . '</p>
-                <p class="lead mb-0"><a href="http://localhost:8080/singleBlog&id=' . $val->post_id . '" class="text-white fw-bold">Continue reading...</a></p>';
+                <p class="lead mb-0"><a href="http://localhost:8080/index/singleBlog?id=' . $val->post_id . '" class="text-white fw-bold">Continue reading...</a></p>';
                         break;
                     }
                 }
@@ -30,7 +30,7 @@
                             <h3 class="mb-0 text-success">' . $val->post_title . '</h3>
                             <div class="mb-1 text-muted">' . $val->publish_date . '</div>
                             <p class="mb-auto ovr">' . $val->post_description . '.......</p>
-                            <a href="http://localhost:8080/singleBlog&id=' . $val->post_id . '" class="stretched-link">Continue reading</a>
+                            <a href="http://localhost:8080/index/singleBlog?id=' . $val->post_id . '" class="stretched-link">Continue reading</a>
                           </div>
                           <div class="col-auto d-none d-lg-block">
                             <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img"
@@ -66,7 +66,7 @@
                           <h3 class="mb-0 text-success">' . $val->post_title . '</h3>
                           <div class="mb-1 text-muted">' . $val->publish_date . '</div>
                           <p class="mb-auto">' . $val->post_description . '.....</p>
-                          <a href="http://localhost:8080/singleBlog&id=' . $val->post_id . '" class="stretched-link">Continue reading</a>
+                          <a href="http://localhost:8080/index/singleBlog?id=' . $val->post_id . '" class="stretched-link">Continue reading</a>
                         </div>
                         <div class="col-auto d-none d-lg-block">
                           <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img"
@@ -101,7 +101,7 @@
                         <ol class="list-unstyled">
                             <?php
                             foreach ($category as $val) {
-                                echo '<li><a href="http://localhost:8080/blogbycategory&catId=' . $val->category_id . '">' . $val->category_name . '</a></li>';
+                                echo '<li><a href="http://localhost:8080/index/blogbycategory?catId=' . $val->category_id . '">' . $val->category_name . '</a></li>';
                             }
                             ?>
                         </ol>
@@ -111,4 +111,4 @@
         </div>
 
     </main>
-    <?php require_once('footer.phtml'); ?>
+    <?php require_once('footer.phtml');
