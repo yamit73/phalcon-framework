@@ -30,19 +30,19 @@
                     <ul class="navbar-nav mr-auto align-items-end">
 
                         <li class="nav-item active">
-                            <a class="nav-link" href="http://localhost:8080">Home</a>
+                            <a class="nav-link" href="/">Home</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="http://localhost:8080/write">Write a Blog</a>
+                            <a class="nav-link" href="index/write">Write a Blog</a>
                         </li>
                     </ul>
                     <?php if (!isset($currentUser)) : ?>
-                        <a type="button" class="btn btn-outline-success mx-1" href="http://localhost:8080/login">Login/SignUp </a>
+                        <a type="button" class="btn btn-outline-success mx-1" href="login">Login/SignUp </a>
                     <?php else : ?>
-                        <a class="nav-link mx-5" href="http://localhost:8080/admin/dashboard&currentSection=myprofile"><?php echo $currentUser['name']; ?></a>
+                        <a class="nav-link mx-5" href="http://localhost:8080/admin"><?php echo $currentUser['name']; ?></a>
 
-                        <a class="nav-link" href="http://localhost:8080/logout">Logout</a>
+                        <a class="nav-link" href="login/logout">Logout</a>
 
                     <?php endif ?>
 

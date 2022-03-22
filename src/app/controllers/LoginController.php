@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 use Phalcon\Mvc\Controller;
 
 class LoginController extends Controller
@@ -22,7 +22,6 @@ class LoginController extends Controller
             ]
         );
         if ($user && $user->permission=='approved') {
-            session_start();
             $_SESSION['currentUser']=$_SESSION['currentUser'] ?? array();
             $_SESSION['currentUser'] = array(
                 'id'=>$user->id,
@@ -34,5 +33,10 @@ class LoginController extends Controller
         } else {
             echo 0;
         }
+    }
+    public function logoutAction()
+    {
+        session_unset();
+        header('location: /');
     }
 }
