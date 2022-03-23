@@ -6,11 +6,6 @@ class SignupController extends Controller
 
     public function indexAction()
     {
-
-    }
-
-    public function registerAction()
-    {
         $user = new Users();
 
         $user->assign(

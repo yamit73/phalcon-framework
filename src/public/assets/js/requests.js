@@ -1,9 +1,8 @@
 $(document).ready(function(){
     $("#signUp").click(function(){
-       //console.log(validateSignup());
        if(validateSignup()){
            $.ajax({
-            url:'http://localhost:8080/Signup/register',
+            url:'http://localhost:8080/Signup',
             type:'POST',
             data:{
                 'name':$("#name").val(),
@@ -36,11 +35,6 @@ $(document).ready(function(){
                  if(data==0){
                     $("#message").html('Error, invalid email or password!');
                     $("#message").addClass('alert-danger');
-                 }else{
-                    // $("#message").html('Logged In');
-                    // $("#message").removeClass('alert-danger');
-                    // $("#message").addClass('alert-success');
-                    window.location.replace("http://localhost:8080");
                  }
              }
             });

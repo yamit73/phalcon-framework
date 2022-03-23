@@ -29,7 +29,11 @@ class LoginController extends Controller
                 'permission'=>$user->permission,
                 'role'=>$user->role
             );
-            echo 1;
+            if ($_SESSION['currentUser']['role']=='admin') {
+                header('location: http://localhost:8080/admin');
+            } else {
+                header('location: http://localhost:8080');
+            }
         } else {
             echo 0;
         }
