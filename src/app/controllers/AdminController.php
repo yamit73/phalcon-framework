@@ -98,4 +98,26 @@ class AdminController extends Controller
         $post->save();
         header("Location: http://localhost:8080/admin?currentSection=blogs");
     }
+    public function changeRoleAction()
+    {
+        $newRole=$this->request->getQuery('newRole');
+        $user = Users::findFirst($this->request->getQuery('userId'));
+        $user->role = $newRole;
+        $user->save();
+        header("Location: http://localhost:8080/admin?currentSection=users");
+    }
+    public function changePermissionAction()
+    {
+        $newPer=$this->request->getQuery('newPer');
+        $user = Users::findFirst($this->request->getQuery('userId'));
+        $user->permission = $newPer;
+        $user->save();
+        header("Location: http://localhost:8080/admin?currentSection=users");
+    }
+    // public function deleteUserAction()
+    // {
+    //     $user = Users::findFirst($this->request->getQuery('id'));
+    //     $user->delete();
+    //     header("Location: http://localhost:8080/admin?currentSection=users");
+    // }
 }

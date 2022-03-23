@@ -1,6 +1,3 @@
-<?php
-
-?>
 <!doctype html>
 <html lang="en">
 
@@ -40,9 +37,8 @@
                     <?php if (!isset($currentUser)) : ?>
                         <a type="button" class="btn btn-outline-success mx-1" href="login">Login/SignUp </a>
                     <?php else : ?>
-                        <a class="nav-link mx-5" href="http://localhost:8080/admin"><?php echo $currentUser['name']; ?></a>
-
-                        <a class="nav-link" href="login/logout">Logout</a>
+                        <a class="nav-link text-info name" href="http://localhost:8080/admin"><?php echo $currentUser['name']; ?></a>
+                        <a class="nav-link text-warning" href="http://localhost:8080/login/logout">Logout</a>
 
                     <?php endif ?>
 
