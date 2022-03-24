@@ -1,14 +1,9 @@
 <?php
-session_start();
 use Phalcon\Mvc\Controller;
 
 class LoginController extends Controller
 {
     public function indexAction()
-    {
-        
-    }
-    public function loginAction()
     {
         $email=$this->request->getPost('email');
         $password=$this->request->getPost('password');
@@ -21,26 +16,28 @@ class LoginController extends Controller
                 ],
             ]
         );
-        if ($user && $user->permission=='approved') {
-            $_SESSION['currentUser']=$_SESSION['currentUser'] ?? array();
-            $_SESSION['currentUser'] = array(
-                'id'=>$user->id,
-                'name'=>$user->name,
-                'permission'=>$user->permission,
-                'role'=>$user->role
-            );
-            if ($_SESSION['currentUser']['role']=='admin') {
-                header('location: http://localhost:8080/admin');
+        if ($user) {
+            if ($user->permission=='approved') {
+                $this->session->set('id', $user->id);
+                $this->session->set('name', $user->name);
+                $this->session->set('role', $user->role);
+                $this->session->set('permission', $user->permission);
+                $this->session->id=$user->id;
+                if ($this->session->role==='admin') {
+                    $this->response->redirect('http://localhost:8080/admin');
+                } else {
+                    $this->response->redirect('/');
+                }
             } else {
-                header('location: http://localhost:8080');
+                $this->view->message="You don't have permission to login!";
             }
         } else {
-            echo 0;
+            $this->view->message="Invalid credentials";
         }
     }
     public function logoutAction()
     {
-        session_unset();
-        header('location: /');
+        $this->session->destroy();
+        $this->response->redirect('/');
     }
 }

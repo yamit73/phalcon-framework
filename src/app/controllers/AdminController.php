@@ -1,16 +1,14 @@
 <?php
-session_start();
 use Phalcon\Mvc\Controller;
 
 class AdminController extends Controller
 {
     public function indexAction()
     {
-        $this->view->currentUser=$_SESSION['currentUser'];
         $currentSection=$this->request->getQuery('currentSection');
         if ($currentSection=='blogs') {
-            if (!isset($_SESSION['currentUser']) || $_SESSION['currentUser']['role'] != 'admin') {
-                header("Location: login");
+            if (!isset($this->session->id) || $this->session->role != 'admin') {
+                $this->response->redirect("login");
             }
             $posts=Posts::find(['order' => 'review_date DESC']);
             $data=array();
@@ -29,8 +27,8 @@ class AdminController extends Controller
             }
             $this->view->dat=$data;
         } elseif ($currentSection=='users') {
-            if (!isset($_SESSION['currentUser']) || $_SESSION['currentUser']['role'] != 'admin') {
-                header("Location: login");
+            if (!isset($this->session->id) || $this->session->role != 'admin') {
+                $this->response->redirect("login");
             }
             $users=Users::find();
             $data=array();
@@ -46,10 +44,10 @@ class AdminController extends Controller
             $this->view->dat=$data;
         } elseif ($currentSection=='myprofile') {
 
-            if (!isset($_SESSION['currentUser']['id'])) {
-                header("Location: login");
+            if (!isset($this->session->id)) {
+                $this->response->redirect("login");
             }
-            $user=Users::findFirst($_SESSION['currentUser']['id']);
+            $user=Users::findFirst($this->session->id);
             $data=array(
                 'id'=>$user->id,
                 'name'=>$user->name,
@@ -58,13 +56,13 @@ class AdminController extends Controller
             $this->view->dat=$data;
         } elseif ($currentSection=='myblogs') {
 
-            if (!isset($_SESSION['currentUser']['id'])) {
-                header("Location: login");
+            if (!isset($this->session->id)) {
+                $this->response->redirect("login");
             }
-            if ($_SESSION['currentUser']['role']!='writer') {
+            if ($this->session->role!='writer') {
                 die('<h2 class="text-warning">You are not a writer!</h2>');
             }
-            $posts=Posts::find('user_id='.$_SESSION['currentUser']['id'].'');
+            $posts=Posts::find('user_id='.$this->session->id.'');
             $data=array();
             foreach ($posts as $val) {
                 array_push($data, array(
@@ -96,7 +94,7 @@ class AdminController extends Controller
             $post->publish_date = date('Y-m-d');
         }
         $post->save();
-        header("Location: http://localhost:8080/admin?currentSection=blogs");
+        $this->response->redirect("http://localhost:8080/admin?currentSection=blogs");
     }
     public function changeRoleAction()
     {
@@ -104,7 +102,7 @@ class AdminController extends Controller
         $user = Users::findFirst($this->request->getQuery('userId'));
         $user->role = $newRole;
         $user->save();
-        header("Location: http://localhost:8080/admin?currentSection=users");
+        $this->response->redirect("http://localhost:8080/admin?currentSection=users");
     }
     public function changePermissionAction()
     {
@@ -112,7 +110,7 @@ class AdminController extends Controller
         $user = Users::findFirst($this->request->getQuery('userId'));
         $user->permission = $newPer;
         $user->save();
-        header("Location: http://localhost:8080/admin?currentSection=users");
+        $this->response->redirect("http://localhost:8080/admin?currentSection=users");
     }
     // public function deleteUserAction()
     // {

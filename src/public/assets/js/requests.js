@@ -21,25 +21,26 @@ $(document).ready(function(){
            });
        }
     });
-    $("#login").click(function(){
-        // console.log(validateLogin());
-        if(validateLogin()){
-            $.ajax({
-             url:'http://localhost:8080/Login/login',
-             type:'POST',
-             data:{
-                 'email':$("#email").val(),
-                 'password':$("#password").val()
-             },
-             success:function(data){
-                 if(data==0){
-                    $("#message").html('Error, invalid email or password!');
-                    $("#message").addClass('alert-danger');
-                 }
-             }
-            });
-        }
-     });
+    // $("#login").click(function(){
+    //     // console.log(validateLogin());
+    //     if(validateLogin()){
+    //         $.ajax({
+    //          url:'http://localhost:8080/Login/index',
+    //          type:'POST',
+    //          data:{
+    //              'email':$("#email").val(),
+    //              'password':$("#password").val()
+    //          },
+    //          success:function(data){
+    //              console.log(data);
+    //              if(data.length){
+    //                 $("#message").html('Error, invalid email or password!');
+    //                 $("#message").addClass('alert-danger');
+    //              }
+    //          }
+    //         });
+    //     }
+    //  });
 });
 function validateLogin(){
     var flag=false;

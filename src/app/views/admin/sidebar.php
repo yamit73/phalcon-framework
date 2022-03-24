@@ -4,18 +4,18 @@
       <li class="nav-item">
         <a class="nav-link text-success h4" aria-current="page" href="#">
           <span data-feather="home"></span>
-            <?php echo ucwords($currentUser['name']); ?>
+            <?php echo ucwords($this->session->name); ?>
         </a>
       </li>
         <?php
-        if ($currentUser['role']=='user') {
+        if ($this->session->role=='user') {
             echo '<li class="nav-item">
                     <a class="nav-link" href="http://localhost:8080/admin?currentSection=myprofile">
                       <span data-feather="file"></span>
                       My profile
                     </a>
                   </li>';
-        } elseif ($currentUser['role']=='admin') {
+        } elseif ($this->session->role=='admin') {
             echo '<li class="nav-item">
                     <a class="nav-link" href="http://localhost:8080/admin/?role=admin&currentSection=users">
                       <span data-feather="file"></span>
@@ -28,7 +28,7 @@
                       Blogs
                     </a>
                   </li>';
-        } elseif ($currentUser['role']=='writer') {
+        } elseif ($this->session->role=='writer') {
             echo '<li class="nav-item">
                     <a class="nav-link" href="http://localhost:8080/admin?currentSection=myprofile">
                       <span data-feather="file"></span>

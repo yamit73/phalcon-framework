@@ -1,4 +1,3 @@
-<?php //print_r($currentUser);?>
 <!doctype html>
 <html lang="en">
   <head>
