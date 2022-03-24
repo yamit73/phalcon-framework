@@ -34,10 +34,10 @@
                             <a class="nav-link" href="index/write">Write a Blog</a>
                         </li>
                     </ul>
-                    <?php if (!isset($currentUser)) : ?>
+                    <?php if (!isset($this->session->id)) : ?>
                         <a type="button" class="btn btn-outline-success mx-1" href="login">Login/SignUp </a>
                     <?php else : ?>
-                        <a class="nav-link text-info name" href="http://localhost:8080/admin"><?php echo $currentUser['name']; ?></a>
+                        <a class="nav-link text-info name" href="http://localhost:8080/admin"><?php echo $this->session->name; ?></a>
                         <a class="nav-link text-warning" href="http://localhost:8080/login/logout">Logout</a>
 
                     <?php endif ?>

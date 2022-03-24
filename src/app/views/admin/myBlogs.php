@@ -1,6 +1,3 @@
-<?php
-global $settings;
-?>
 <h2>My Blogs</h2>
 <div class="table-responsive">
     <table class="table table-sm table-hover">

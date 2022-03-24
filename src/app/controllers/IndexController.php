@@ -1,19 +1,15 @@
 <?php
-session_start();
 use Phalcon\Mvc\Controller;
-use Phalcon\Http\Response;
 
 class IndexController extends Controller
 {
     public function indexAction()
     {
-        $this->view->currentUser=$_SESSION['currentUser'];
         $this->view->posts=Posts::find(['order'=>'publish_date DESC']);
         $this->view->category=Categories::find();
     }
     public function blogbycategoryAction()
     {
-        $this->view->currentUser=$_SESSION['currentUser'];
         $id=$this->request->getQuery('catId');
         $this->view->posts=Posts::find([
             'conditions' => 'category_id='.$id.'',
@@ -22,7 +18,6 @@ class IndexController extends Controller
     }
     public function singleBlogAction()
     {
-        $this->view->currentUser=$_SESSION['currentUser'];
         $id=$this->request->getQuery('id');
         $this->view->category=Categories::find();
         $post=Posts::findFirst($id);
@@ -51,27 +46,26 @@ class IndexController extends Controller
     }
     public function commentAction()
     {
-        if (!isset($_SESSION['currentUser'])) {
-            header("location: http://localhost:8080/login");
+        if (!isset($this->session->id)) {
+            $this->response->redirect("login");
         } else {
             $comment=new Comments();
             $comment->post_id=$this->request->getQuery('post_id');
-            $comment->user_id=$_SESSION['currentUser']['id'];
+            $comment->user_id=$this->session->id;
             $comment->comment=$this->request->getPost('comment');
             $comment->comment_date=date('y-m-d');
             if ($comment->save()) {
-                header("Location: http://localhost:8080/index/singleBlog?id=".$this->request->getQuery('post_id')."");
+                $this->response->redirect("http://localhost:8080/index/singleBlog?id=".$this->request->getQuery('post_id')."");
             }
         }
     }
     public function writeAction()
     {
-        $this->view->currentUser=$_SESSION['currentUser'];
-        if (!isset($_SESSION['currentUser'])) {
-            header("location: http://localhost:8080/login");
+        if (!isset($this->session->id)) {
+            $this->response->redirect("http://localhost:8080/login");
         }
-        if ($_SESSION['currentUser']['role']!='writer') {
-            header("location: http://localhost:8080");
+        if ($this->session->role!='writer') {
+            $this->response->redirect("http://localhost:8080");
         }
         $this->view->category=Categories::find();
         $post = new Posts();
@@ -86,7 +80,7 @@ class IndexController extends Controller
                 'post_content'
             ]
         );
-        $post->user_id=$_SESSION['currentUser']['id'];
+        $post->user_id=$this->session->id;
         $post->review_date=date('Y-m-d');
         $success=$post->save();
         $this->view->success=$success;
